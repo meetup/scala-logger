@@ -2,6 +2,19 @@ package com.meetup.logging
 
 import com.meetup.logging.metric.{Timing, Set, Gauge, Count}
 
+object StatsLogger {
+  def gaugeValue(value: Int, delta: Boolean = false): String = {
+    // When delta is false value should be unsigned
+
+    // When delta is true:
+    // Value is positive, a plus sign should precede the value
+    // Value is negative, a minus sign should precede the value
+    if (delta && value > 0) {
+      "+" + value.toString
+    } else value.toString
+  }
+}
+
 /**
  * Easy to use interface for logging metrics as json.
  * Borrowed explanations from http://statsd.readthedocs.org/en/v3.1/types.html
@@ -19,7 +32,7 @@ class StatsLogger(logger: Logger) {
    *             service if provided.
    */
   def incr(key: String, value: Int = 1, rate: Double = 1.0) = {
-    logger.info(Count(key, value, rate).render)
+    logger.info(Count(key, value.toString, rate).render)
   }
 
   /**
@@ -33,7 +46,7 @@ class StatsLogger(logger: Logger) {
    *             service if provided.
    */
   def decr(key: String, value: Int = 1, rate: Double = 1.0) = {
-    logger.info(Count(key, -value, rate).render)
+    logger.info(Count(key, (-value).toString, rate).render)
   }
 
   /**
@@ -48,7 +61,7 @@ class StatsLogger(logger: Logger) {
    * @param delta whether or not to consider as a delta vs absolute value.
    */
   def gauge(key: String, value: Int, rate: Double = 1.0, delta: Boolean = false) = {
-    logger.info(Gauge(key, value, rate, delta).render)
+    logger.info(Gauge(key, StatsLogger.gaugeValue(value, delta), rate).render)
   }
 
   /**
@@ -60,7 +73,7 @@ class StatsLogger(logger: Logger) {
    *             service if provided.
    */
   def set(key: String, value: Int, rate: Double = 1.0): Unit = {
-    logger.info(Set(key, value, rate).render)
+    logger.info(Set(key, value.toString, rate).render)
   }
 
   /**
@@ -73,7 +86,7 @@ class StatsLogger(logger: Logger) {
    *             service if provided.
    */
   def timing(key: String, value: Int, rate: Double = 1.0): Unit = {
-    logger.info(Timing(key, value, rate).render)
+    logger.info(Timing(key, value.toString, rate).render)
   }
 
   /**

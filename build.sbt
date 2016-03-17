@@ -8,8 +8,6 @@ libraryDependencies ++= Seq(
   "org.json4s" %% "json4s-native" % "3.3.0" % "test"
 )
 
-scalaVersion := "2.11.7"
-
 name := "meetup-logger"
 
 coverageEnabled := true
