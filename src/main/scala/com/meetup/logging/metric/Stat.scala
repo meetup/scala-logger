@@ -1,4 +1,4 @@
-package com.meetup.blt.logging.metric
+package com.meetup.logging.metric
 
 /**
  * Object representation of Metrics with some methods to serialize them

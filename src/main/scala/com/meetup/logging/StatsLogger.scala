@@ -1,12 +1,12 @@
-package com.meetup.blt.logging
+package com.meetup.logging
 
-import com.meetup.blt.logging.metric.{Timing, Gauge, Count, Set}
+import com.meetup.logging.metric.{Timing, Set, Gauge, Count}
 
 /**
  * Easy to use interface for logging metrics as json.
  * Borrowed explanations from http://statsd.readthedocs.org/en/v3.1/types.html
  */
-class StatsLogger(logger: AdvancedLogger) {
+class StatsLogger(logger: Logger) {
 
   /**
    * Increment a counter. Counters are the most basic and default type. They

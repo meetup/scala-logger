@@ -1,4 +1,4 @@
-package com.meetup.blt.logging.metric
+package com.meetup.logging.metric
 
 import org.json4s.JObject
 import org.json4s.JsonAST.{JBool, JDouble, JString}

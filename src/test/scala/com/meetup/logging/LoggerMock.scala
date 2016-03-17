@@ -1,6 +1,6 @@
-package com.meetup.blt.logging
+package com.meetup.logging
 
-import org.apache.log4j.Logger
+import org.apache.log4j.{Logger => Log4jLogger}
 
 object LoggerMock {
   def defaultLog(s: Object) = println(s)
@@ -12,7 +12,7 @@ object LoggerMock {
 class LoggerMock(
     debugEnabled: Boolean = false,
     debugLog: Object => Unit = LoggerMock.defaultLog
-) extends Logger("LoggerMock") {
+) extends Log4jLogger("LoggerMock") {
   // The stuff we use... so far.
   override def isDebugEnabled = debugEnabled
   override def debug(message: Object) = debugLog(message)

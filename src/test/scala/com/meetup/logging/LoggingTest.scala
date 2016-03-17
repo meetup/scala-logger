@@ -1,4 +1,4 @@
-package com.meetup.blt.logging
+package com.meetup.logging
 
 import org.scalatest.FunSpec
 

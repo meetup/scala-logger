@@ -1,8 +1,8 @@
-package com.meetup.blt.logging
+package com.meetup.logging
 
 import org.scalatest.{Matchers, FunSpec}
 
-class AdvancedLoggerTest extends FunSpec with Matchers {
+class LoggerTest extends FunSpec with Matchers {
 
   describe("AdvancedLogger") {
     describe("debug logging") {
@@ -14,13 +14,13 @@ class AdvancedLoggerTest extends FunSpec with Matchers {
         }
         )
 
-        new AdvancedLogger(logger).debug("message")
+        new Logger(logger).debug("message")
       }
 
       it("shouldn't evaluate message when disabled") {
         val logger = new LoggerMock(debugEnabled = false)
 
-        new AdvancedLogger(logger).debug {
+        new Logger(logger).debug {
           fail("Shouldn't have gotten here.")
           "message"
         }
@@ -35,7 +35,7 @@ class AdvancedLoggerTest extends FunSpec with Matchers {
           ran = true
         })
 
-        new AdvancedLogger(logger).debug("logging something")
+        new Logger(logger).debug("logging something")
         ran shouldBe true
       }
 

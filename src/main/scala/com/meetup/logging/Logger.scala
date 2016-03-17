@@ -1,14 +1,13 @@
-package com.meetup.blt.logging
+package com.meetup.logging
 
-import org.apache.log4j.{Level, Logger}
+import org.apache.log4j.{Level, Logger => Log4jLogger}
 
 /**
  * Simplified wrapper for whatever logger we're using
  * that provides call by name methods to prevent any over anxious
  * serialization of messages.
  */
-class AdvancedLogger(logger: Logger) {
-
+class Logger(logger: Log4jLogger) {
   def debug(message: => String) = if (logger.isDebugEnabled) logger.debug(message)
   def debug(message: => String, ex: Throwable) = if (logger.isDebugEnabled) logger.debug(message, ex)
 
