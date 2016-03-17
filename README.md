@@ -12,7 +12,7 @@ for you to use.
 
 ## Usage
 
-Implement the `com.meetup.blt.logging.Logging` trait.  Your class will then
+Implement the `com.meetup.logging.Logging` trait.  Your class will then
 have access to a `log` and `stat` variable.
 
 ```scala
