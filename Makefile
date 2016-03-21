@@ -9,7 +9,7 @@ CI_SBT_CACHE ?= $(HOME)/.sbt
 CI_WORKDIR ?= $(shell pwd)
 
 VERSION = $(CI_BUILD_NUMBER)
-BUILDER_TAG = $(builderImage):$(builderVersion)
+BUILDER_TAG = mup.cr/blt/build-sbt:1.0
 
 # lists all available targets
 list:
