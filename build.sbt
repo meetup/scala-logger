@@ -1,6 +1,5 @@
 
 enablePlugins(CommonSettingsPlugin)
-enablePlugins(ScalariformPlugin)
 enablePlugins(NexusPlugin)
 
 libraryDependencies ++= Seq(
@@ -11,3 +10,6 @@ libraryDependencies ++= Seq(
 name := "meetup-logger"
 
 coverageEnabled := true
+
+coverageOutputXML := false
+coverageOutputHTML := false
