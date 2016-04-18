@@ -3,3 +3,5 @@ resolvers += "Nexus" at "https://nexus.blt.meetup.com/content/repositories/relea
 addSbtPlugin("com.meetup" % "sbt-plugins" % "8.0.0")
 
 addSbtPlugin("org.scoverage" % "sbt-scoverage" % "1.3.5")
+
+addSbtPlugin("org.scoverage" % "sbt-coveralls" % "1.1.0")

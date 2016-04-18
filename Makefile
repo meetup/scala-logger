@@ -6,8 +6,8 @@ CI_IVY_CACHE ?= $(HOME)/.ivy2
 CI_SBT_CACHE ?= $(HOME)/.sbt
 CI_WORKDIR ?= $(shell pwd)
 
-VERSION = $(CI_BUILD_NUMBER)
-BUILDER_TAG = mup.cr/blt/build-sbt:1.0
+VERSION ?= $(CI_BUILD_NUMBER)
+BUILDER_TAG = $(builderImage):$(builderVersion)
 
 # lists all available targets
 list:
@@ -26,8 +26,8 @@ clean:
 	@sbt clean
 	rm -rf $(TARGET_DIR)
 
-package-local:
-	sbt publishLocal
+package-sbt:
+	sbt clean coverage test publishLocal
 
 package:
 	docker pull $(BUILDER_TAG)
@@ -37,10 +37,25 @@ package:
 		-v $(CI_IVY_CACHE):/root/.ivy2 \
 		-v $(CI_SBT_CACHE):/root/.sbt \
 		-e CI_BUILD_NUMBER=$(CI_BUILD_NUMBER) \
-		$(BUILDER_TAG)
+		$(BUILDER_TAG) \
+		package-sbt
+
+publish-coveralls:
+	sbt coverageReport coveralls
+
+publish-sbt: publish-coveralls
+	sbt publish cleanLocal
 
 publish:
-	# This should publish the snapshot to nexus.
+	docker run \
+		--rm \
+		-v $(CI_WORKDIR):/data \
+		-v $(CI_IVY_CACHE):/root/.ivy2 \
+		-v $(CI_SBT_CACHE):/root/.sbt \
+		-e CI_BUILD_NUMBER=$(CI_BUILD_NUMBER) \
+		-e COVERALLS_REPO_TOKEN=$(COVERALLS_REPO_TOKEN) \
+		$(BUILDER_TAG) \
+		publish-sbt
 
 version:
 	@echo $(VERSION)
