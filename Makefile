@@ -41,7 +41,7 @@ package:
 		package-sbt
 
 publish-coveralls:
-	sbt "set coverageOutputHTML := false" coverageReport
+	sbt "set coverageOutputHTML := false" coverageReport coveralls
 
 publish-sbt: publish-coveralls
 	sbt publish cleanLocal
