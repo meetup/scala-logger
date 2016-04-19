@@ -27,7 +27,7 @@ clean:
 	rm -rf $(TARGET_DIR)
 
 package-sbt:
-	sbt clean coverage test publishLocal
+	sbt clean test publishLocal
 
 package:
 	docker pull $(BUILDER_TAG)
@@ -41,7 +41,7 @@ package:
 		package-sbt
 
 publish-coveralls:
-	sbt coverageReport coveralls
+	sbt "set coverageOutputHTML := false" coverageReport
 
 publish-sbt: publish-coveralls
 	sbt publish cleanLocal
