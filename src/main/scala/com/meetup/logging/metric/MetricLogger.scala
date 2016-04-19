@@ -81,9 +81,9 @@ class MetricLogger(logger: (=> String) => Unit) {
    * @return
    */
   def time[A](key: String)(block: => A): A = {
-    val startNano = System.nanoTime
+    val start = System.currentTimeMillis
     val result = block
-    val ms = ((System.nanoTime - startNano) / 1000000).toInt
+    val ms = (System.currentTimeMillis() - start).toInt
     timing(key, ms)
     result
   }
