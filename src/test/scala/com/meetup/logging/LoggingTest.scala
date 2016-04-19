@@ -9,12 +9,12 @@ class LoggingTest extends FunSpec {
       log.info("Logging a message")
       log.debug("Logging a debug message")
 
-      stat.time("stat.key") {
+      metric.time("mystat.subkey") {
         log.info("I'm timing this log statement.")
         Thread.sleep(100)
       }
 
-      stat.gauge("stat.gauge.key", -2, delta = true)
+      metric.gauge("mystat.subkey", -2)
     }
   }
 
