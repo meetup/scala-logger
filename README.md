@@ -1,6 +1,6 @@
 # Scala Logger
 
-[![Coverage Status](https://coveralls.io/repos/github/meetup/scala-logger/badge.svg?branch=master)](https://coveralls.io/github/meetup/scala-logger?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/meetup/scala-logger/badge.svg?branch=master&t=ZUhGFK)](https://coveralls.io/github/meetup/scala-logger?branch=master)
 
 We want to simplify the dependencies of our services when it comes to
 logging and metrics.  So we think it makes the most sense to dump all
