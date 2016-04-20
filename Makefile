@@ -27,7 +27,7 @@ clean:
 	rm -rf $(TARGET_DIR)
 
 package-sbt:
-	sbt clean test publishLocal
+	sbt coverageOff clean test publishLocal
 
 package:
 	docker pull $(BUILDER_TAG)
