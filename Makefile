@@ -26,24 +26,21 @@ clean:
 	@sbt clean
 	rm -rf $(TARGET_DIR)
 
-package-sbt:
-	sbt clean test publishLocal
-
 package:
-	docker pull $(BUILDER_TAG)
-	docker run \
-		--rm \
-		-v $(CI_WORKDIR):/data \
-		-v $(CI_IVY_CACHE):/root/.ivy2 \
-		-v $(CI_SBT_CACHE):/root/.sbt \
-		-e CI_BUILD_NUMBER=$(CI_BUILD_NUMBER) \
-		$(BUILDER_TAG) \
-		package-sbt
+	echo "Not used anymore."
 
-publish-coveralls:
-	sbt "set coverageOutputHTML := false" coverageReport coveralls
+package-sbt:
+	sbt clean \
+		"set coverageEnabled := true" \
+		"set coverageOutputHTML := false" \
+		test \
+		coverageReport \
+		coveralls \
+		coverageOff \
+		publishLocal \
+		component:test
 
-publish-sbt: publish-coveralls
+publish-sbt: package-sbt
 	sbt publish cleanLocal
 
 publish:
