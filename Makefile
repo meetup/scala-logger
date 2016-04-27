@@ -31,8 +31,8 @@ package:
 
 package-sbt:
 	sbt clean \
+		"set coverageEnabled := true" \
 		"set coverageOutputHTML := false" \
-		coverage \
 		test \
 		coverageReport \
 		coveralls \
