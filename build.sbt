@@ -1,4 +1,3 @@
-
 enablePlugins(CommonSettingsPlugin)
 enablePlugins(NexusPlugin)
 
@@ -9,5 +8,4 @@ libraryDependencies ++= Seq(
 
 name := "scala-logger"
 
-coverageEnabled := true
 coverageOutputXML := false

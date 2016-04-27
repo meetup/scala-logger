@@ -27,23 +27,17 @@ clean:
 	rm -rf $(TARGET_DIR)
 
 package-sbt:
-	sbt clean test publishLocal
+	sbt clean \
+		"set coverageOutputHTML := false" \
+		coverage \
+		test \
+		coverageReport \
+		coveralls \
+		coverageOff \
+		publishLocal \
+		component:test
 
-package:
-	docker pull $(BUILDER_TAG)
-	docker run \
-		--rm \
-		-v $(CI_WORKDIR):/data \
-		-v $(CI_IVY_CACHE):/root/.ivy2 \
-		-v $(CI_SBT_CACHE):/root/.sbt \
-		-e CI_BUILD_NUMBER=$(CI_BUILD_NUMBER) \
-		$(BUILDER_TAG) \
-		package-sbt
-
-publish-coveralls:
-	sbt "set coverageOutputHTML := false" coverageReport coveralls
-
-publish-sbt: publish-coveralls
+publish-sbt: package-sbt
 	sbt publish cleanLocal
 
 publish:
