@@ -1,4 +1,5 @@
 enablePlugins(CommonSettingsPlugin)
+enablePlugins(CoverallsWrapper)
 enablePlugins(NexusPlugin)
 
 libraryDependencies ++= Seq(
