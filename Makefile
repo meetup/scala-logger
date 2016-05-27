@@ -26,9 +26,6 @@ clean:
 	@sbt clean
 	rm -rf $(TARGET_DIR)
 
-package:
-	echo "Not used anymore."
-
 package-sbt:
 	sbt clean \
 		"set coverageEnabled := true" \
