@@ -32,3 +32,11 @@ object MyObject extends Logging {
   }
 }
 ```
+
+## Log Line Format
+
+```{formatted timestamp} {priority} {classname}:{linenumber} - {message}```
+
+*ex:*
+
+ ```2016-07-22 02:07:29 INFO  PartyFavor$:145 - Queueing build for pull request...```
