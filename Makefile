@@ -55,6 +55,7 @@ __contained-target:
 		-v $(CI_WORKDIR):/data \
 		-v $(CI_IVY_CACHE):/root/.ivy2 \
 		-v $(CI_SBT_CACHE):/root/.sbt \
+		-v $(HOME)/.bintray:/root/.bintray \
 		-e CI_BUILD_NUMBER=$(CI_BUILD_NUMBER) \
 		-e TRAVIS_JOB_ID=$(TRAVIS_JOB_ID) \
 		-e TRAVIS_PULL_REQUEST=$(TRAVIS_PULL_REQUEST) \
