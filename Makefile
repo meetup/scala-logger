@@ -1,13 +1,15 @@
 PROJECT_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 TARGET_DIR=$(PROJECT_DIR)target
 
-CI_BUILD_NUMBER ?= $(USER)-snapshot
+CI_BUILD_NUMBER ?= $(USER)-SNAPSHOT
 CI_IVY_CACHE ?= $(HOME)/.ivy2
 CI_SBT_CACHE ?= $(HOME)/.sbt
 CI_WORKDIR ?= $(shell pwd)
 
-VERSION ?= $(CI_BUILD_NUMBER)
-BUILDER_TAG = "mup.cr/blt/build-sbt:78"
+TARGET ?= __package-sbt
+
+VERSION ?= 0.1.$(CI_BUILD_NUMBER)
+BUILDER_TAG = "meetup/sbt-builder:0.1.3"
 
 # lists all available targets
 list:
@@ -26,10 +28,7 @@ clean:
 	@sbt clean
 	rm -rf $(TARGET_DIR)
 
-package:
-	echo "Not used anymore."
-
-package-sbt:
+__package-sbt:
 	sbt clean \
 		"set coverageEnabled := true" \
 		"set coverageOutputHTML := false" \
@@ -40,19 +39,27 @@ package-sbt:
 		publishLocal \
 		component:test
 
-publish-sbt: package-sbt
+__publish-sbt: __package-sbt
 	sbt publish cleanLocal
 
-publish:
+package: __contained-target
+
+__set-publish:
+	$(eval TARGET=__publish-sbt)
+
+publish: __set-publish __contained-target
+
+__contained-target:
 	docker run \
 		--rm \
 		-v $(CI_WORKDIR):/data \
 		-v $(CI_IVY_CACHE):/root/.ivy2 \
 		-v $(CI_SBT_CACHE):/root/.sbt \
 		-e CI_BUILD_NUMBER=$(CI_BUILD_NUMBER) \
-		-e COVERALLS_REPO_TOKEN=$(COVERALLS_REPO_TOKEN) \
+		-e TRAVIS_JOB_ID=$(TRAVIS_JOB_ID) \
+		-e TRAVIS_PULL_REQUEST=$(TRAVIS_PULL_REQUEST) \
 		$(BUILDER_TAG) \
-		publish-sbt
+		make $(TARGET)
 
 version:
 	@echo $(VERSION)
