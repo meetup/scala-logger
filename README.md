@@ -1,5 +1,5 @@
 # Scala Logger
-
+[![Build Status](https://travis-ci.org/meetup/scala-logger.svg?branch=master)](https://travis-ci.org/meetup/scala-logger)
 [![Coverage Status](https://coveralls.io/repos/github/meetup/scala-logger/badge.svg?branch=master&t=ZUhGFK)](https://coveralls.io/github/meetup/scala-logger?branch=master)
 
 We want to simplify the dependencies of our services when it comes to
