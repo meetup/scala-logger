@@ -13,3 +13,5 @@ coverageOutputXML := false
 resolvers += "softprops-maven" at "http://dl.bintray.com/content/softprops/maven"
 
 bintrayOrganization in ThisBuild := Some("meetup")
+
+licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
