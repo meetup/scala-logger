@@ -1,6 +1,5 @@
 enablePlugins(CommonSettingsPlugin)
 enablePlugins(CoverallsWrapper)
-enablePlugins(NexusPlugin)
 
 libraryDependencies ++= Seq(
   "org.slf4j" % "slf4j-api" % "1.7.21",
@@ -10,3 +9,7 @@ libraryDependencies ++= Seq(
 name := "scala-logger"
 
 coverageOutputXML := false
+
+resolvers += "softprops-maven" at "http://dl.bintray.com/content/softprops/maven"
+
+bintrayOrganization in ThisBuild := Some("meetup")
