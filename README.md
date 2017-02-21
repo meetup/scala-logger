@@ -1,6 +1,6 @@
 # Scala Logger
 [![Build Status](https://travis-ci.org/meetup/scala-logger.svg?branch=master)](https://travis-ci.org/meetup/scala-logger)
-[![Coverage Status](https://coveralls.io/repos/github/meetup/scala-logger/badge.svg?branch=master&t=ZUhGFK)](https://coveralls.io/github/meetup/scala-logger?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/meetup/scala-logger/badge.svg?branch=master&t=ZUhGFK)](https://coveralls.io/github/meetup/scala-logger?branch=master) [ ![Download](https://api.bintray.com/packages/meetup/maven/scala-logger/images/download.svg) ](https://bintray.com/meetup/maven/scala-logger/_latestVersion)
 
 We want to simplify the dependencies of our services when it comes to
 logging and metrics.  So we think it makes the most sense to dump all
