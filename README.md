@@ -12,6 +12,21 @@ So to make this simple and parseable across the board, here's a
 logger you can use.  It'll add some basic metrics gather functions
 for you to use.
 
+## Adding to your project
+
+If your project is based off of the [blt-best-sbt-docker
+example](https://github.com/meetup/blt-best-sbt-docker) or was
+generated from the [core-best-service
+template](https://github.com/meetup/core-best-service.g8/), this
+library should already be included. If not, you'll need the
+following in your build.sbt:
+
+```scala
+resolvers += Resolver.bintrayRepo("meetup", "maven")
+libraryDependencies += "com.meetup" %% "scala-logger" % "0.1.9"
+```
+See the "Download" badge above to determine the latest released version.
+
 ## Usage
 
 Implement the `com.meetup.logging.Logging` trait.  Your class will then
