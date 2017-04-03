@@ -4,3 +4,5 @@ resolvers +=  Resolver.url(
 )(Resolver.ivyStylePatterns)
 
 addSbtPlugin("com.meetup" % "sbt-plugins" % "0.2.17")
+
+addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "0.14.4")
