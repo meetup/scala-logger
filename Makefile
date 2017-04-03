@@ -11,20 +11,20 @@ TARGET ?= __package-sbt
 VERSION ?= 0.1.$(CI_BUILD_NUMBER)
 BUILDER_TAG = "meetup/sbt-builder:0.1.3"
 
-# lists all available targets
-list:
-	@sh -c "$(MAKE) -p no_op__ | \
-		awk -F':' '/^[a-zA-Z0-9][^\$$#\/\\t=]*:([^=]|$$)/ {split(\$$1,A,/ /);\
-		for(i in A)print A[i]}' | \
-		grep -v '__\$$' | \
-		grep -v 'make\[1\]' | \
-		grep -v 'Makefile' | \
-		sort"
+help:
+	@echo Public targets:
+	@grep -E '^[^_][^_][a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-20s\033[0m %s\n", $$1, $$2}'
+	@echo "Private targets: (use at own risk)"
+	@grep -E '^__[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[35m%-20s\033[0m %s\n", $$1, $$2}'
 
-# required for list
-no_op__:
+package: __contained-target ## Packages jar artifact.
 
-clean:
+publish: __set-publish __contained-target ## Publishes jar artifact.
+
+version: ## Prints artifact version.
+	@echo $(VERSION)
+
+__clean: # Cleans sbt artifacts
 	@sbt clean
 	rm -rf $(TARGET_DIR)
 
@@ -42,12 +42,8 @@ __package-sbt:
 __publish-sbt: __package-sbt
 	sbt publish cleanLocal
 
-package: __contained-target
-
 __set-publish:
 	$(eval TARGET=__publish-sbt)
-
-publish: __set-publish __contained-target
 
 __contained-target:
 	docker run \
@@ -61,6 +57,3 @@ __contained-target:
 		-e TRAVIS_PULL_REQUEST=$(TRAVIS_PULL_REQUEST) \
 		$(BUILDER_TAG) \
 		make $(TARGET)
-
-version:
-	@echo $(VERSION)
