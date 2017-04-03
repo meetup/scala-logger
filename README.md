@@ -52,9 +52,3 @@ object MyObject extends Logging {
 
 This library uses [log4j-jsonevent-layout](https://github.com/logstash/log4j-jsonevent-layout) as
 its logging layout and logs to stdout for info and debug and to stdout for error levels. 
-
-```{formatted timestamp} {priority} {classname}:{linenumber} - {message}```
-
-*ex:*
-
- ```2016-07-22 02:07:29 INFO  PartyFavor$:145 - Queueing build for pull request...```
