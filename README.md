@@ -23,7 +23,7 @@ following in your build.sbt:
 
 ```scala
 resolvers += Resolver.bintrayRepo("meetup", "maven")
-libraryDependencies += "com.meetup" %% "scala-logger" % "0.1.9"
+libraryDependencies += "com.meetup" %% "scala-logger" % "0.2.13"
 ```
 See the "Download" badge above to determine the latest released version.
 
@@ -49,6 +49,9 @@ object MyObject extends Logging {
 ```
 
 ## Log Line Format
+
+This library uses [log4j-jsonevent-layout](https://github.com/logstash/log4j-jsonevent-layout) as
+its logging layout and logs to stdout for info and debug and to stdout for error levels. 
 
 ```{formatted timestamp} {priority} {classname}:{linenumber} - {message}```
 
