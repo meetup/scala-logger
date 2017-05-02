@@ -30,7 +30,7 @@ See the "Download" badge above to determine the latest released version.
 ## Usage
 
 Implement the `com.meetup.logging.Logging` trait.  Your class will then
-have access to a `log` and `stat` variable.
+have access to `log` and `metric` variables.
 
 ```scala
 object MyObject extends Logging {
@@ -38,12 +38,12 @@ object MyObject extends Logging {
     log.info("Logging a message")
     log.debug("Logging a debug message")
 
-    stat.time("stat.key") {
+    metric.time("stat.key") {
       log.info("I'm timing this log statement.")
       Thread.sleep(100)
     }
 
-    stat.gauge("stat.gauge.key", -2, delta = true)
+    metric.gauge("stat.gauge.key", -2, delta = true)
   }
 }
 ```
