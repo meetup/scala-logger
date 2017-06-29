@@ -23,7 +23,7 @@ following in your build.sbt:
 
 ```scala
 resolvers += Resolver.bintrayRepo("meetup", "maven")
-libraryDependencies += "com.meetup" %% "scala-logger" % "0.2.13"
+libraryDependencies += "com.meetup" %% "scala-logger" % "X.X.X"
 ```
 See the "Download" badge above to determine the latest released version.
 
