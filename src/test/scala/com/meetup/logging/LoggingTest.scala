@@ -8,6 +8,7 @@ class LoggingTest extends FunSpec {
     def test() = {
       log.info("Logging a message")
       log.debug("Logging a debug message")
+      log.warn("Logging a warn message")
 
       metric.time("mystat.subkey") {
         log.info("I'm timing this log statement.")
