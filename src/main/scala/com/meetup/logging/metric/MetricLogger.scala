@@ -1,12 +1,10 @@
 package com.meetup.logging.metric
 
-import com.meetup.logging.Logger
-
 /**
  * Easy to use interface for logging metrics as json.
  * Borrowed explanations from http://statsd.readthedocs.org/en/v3.1/types.html
  */
-class MetricLogger(logger: (=> String) => Unit) {
+class MetricLogger(logger: (=> String) => Unit, metricFormatter: MetricFormatter) {
 
   private def log(out: String) {
     logger(out)
@@ -19,9 +17,10 @@ class MetricLogger(logger: (=> String) => Unit) {
    *
    * @param key name of the counter.
    * @param value the amount to increment.
+   * @param tags optional tags for this metric
    */
-  def incr(key: String, value: Int = 1) {
-    MetricFormatter(Count, key, value.toString)
+  def incr(key: String, value: Int = 1, tags: Map[String, String] = Map.empty): Unit = {
+    metricFormatter(Count, key, value.toString, tags)
       .foreach(log)
   }
 
@@ -32,9 +31,10 @@ class MetricLogger(logger: (=> String) => Unit) {
    *
    * @param key name of the counter.
    * @param value the amount to decrement.
+   * @param tags optional tags for this metric
    */
-  def decr(key: String, value: Int = 1) {
-    incr(key, -value)
+  def decr(key: String, value: Int = 1, tags: Map[String, String] = Map.empty): Unit = {
+    incr(key, -value, tags)
   }
 
   /**
@@ -44,9 +44,10 @@ class MetricLogger(logger: (=> String) => Unit) {
    *
    * @param key name of the gauge.
    * @param value the current value of the gauge.
+   * @param tags optional tags for this metric
    */
-  def gauge(key: String, value: Int) {
-    MetricFormatter(Gauge, key, value.toString)
+  def gauge(key: String, value: Int, tags: Map[String, String] = Map.empty): Unit = {
+    metricFormatter(Gauge, key, value.toString, tags)
       .foreach(log)
   }
 
@@ -55,9 +56,10 @@ class MetricLogger(logger: (=> String) => Unit) {
    *
    * @param key name of the set.
    * @param value the unique value to count.
+   * @param tags optional tags for this metric
    */
-  def set(key: String, value: Int): Unit = {
-    MetricFormatter(Set, key, value.toString)
+  def set(key: String, value: Int, tags: Map[String, String] = Map.empty): Unit = {
+    metricFormatter(Set, key, value.toString, tags)
       .foreach(log)
   }
 
@@ -67,9 +69,10 @@ class MetricLogger(logger: (=> String) => Unit) {
    *
    * @param key name of the timing.
    * @param value number of milliseconds this timing took.
+   * @param tags optional tags for this metric
    */
-  def timing(key: String, value: Int): Unit = {
-    MetricFormatter(Timing, key, value.toString)
+  def timing(key: String, value: Int, tags: Map[String, String] = Map.empty): Unit = {
+    metricFormatter(Timing, key, value.toString, tags)
       .foreach(log)
   }
 
@@ -77,14 +80,15 @@ class MetricLogger(logger: (=> String) => Unit) {
    * Convenience method for timing the given code block.
    *
    * @param key name of the timing.
+   * @param tags optional tags for this metric
    * @param block code block to run.
-   * @return
+   * @return the code block return value
    */
-  def time[A](key: String)(block: => A): A = {
+  def time[A](key: String, tags: Map[String, String] = Map.empty)(block: => A): A = {
     val start = System.currentTimeMillis
     val result = block
     val ms = (System.currentTimeMillis() - start).toInt
-    timing(key, ms)
+    timing(key, ms, tags)
     result
   }
 
