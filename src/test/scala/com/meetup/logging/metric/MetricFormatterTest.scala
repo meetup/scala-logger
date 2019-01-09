@@ -77,6 +77,10 @@ class MetricFormatterTest extends FunSpec with Matchers with TableDrivenProperty
     it("should fail if empty") {
       MetricFormatter.cleanKey("") shouldBe None
     }
+
+    it("should fail if null") {
+      MetricFormatter.cleanKey(null) shouldBe None
+    }
   }
 
   describe("cleaning tags") {
@@ -95,7 +99,7 @@ class MetricFormatterTest extends FunSpec with Matchers with TableDrivenProperty
     }
 
     it("should skip tags with invalid values") {
-      MetricFormatter.cleanTags(Map("key1" -> "#+=@", "key2" -> "value2")) shouldBe
+      MetricFormatter.cleanTags(Map("key1" -> "#+=@", "key2" -> "value2", "key3test" -> null)) shouldBe
         Some("""{"key2":"value2"}""")
     }
 

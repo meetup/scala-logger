@@ -19,7 +19,9 @@ trait MetricFormatter {
    * @return the cleaned key if its non-empty or `None` if the key was cleaned down to nil
    */
   def cleanKey(key: String): Option[String] = {
-    val noInvalidChars = key.replaceAll(invalidCharacters, ".")
+    val safeKey = Option(key).getOrElse("")
+
+    val noInvalidChars = safeKey.replaceAll(invalidCharacters, ".")
     val noExtraPeriods = noInvalidChars.replaceAll("\\.+", ".")
 
     val noPeriodLeft = noExtraPeriods.replaceAll("^\\.+", "")
