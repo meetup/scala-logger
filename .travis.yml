@@ -1,4 +1,3 @@
-sudo: required
 language: bash
 
 # exclude tags.
@@ -20,7 +19,6 @@ env:
     - CLOUDSDK_CORE_DISABLE_PROMPTS=1
 
 before_install:
-
   # Install envtpl for easy templating.
   - sudo pip install envtpl
 
