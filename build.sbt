@@ -10,7 +10,7 @@ libraryDependencies ++= Seq(
 
   // Override scalatest and scalacheck versions in CommonSettingsPlugin to versions that are compatible with scala 2.12
   "org.scalatest" %% "scalatest" % "3.0.8",
-  "org.scalacheck" %% "scalacheck" % "1.12.6" % "test,component,it"
+  "org.scalacheck" %% "scalacheck" % "1.14.2" % "test,component,it"
 )
 
 name := "scala-logger"
