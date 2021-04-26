@@ -8,6 +8,9 @@ CI_WORKDIR ?= $(shell pwd)
 
 TARGET ?= __package-sbt
 
+GROUP_ID?="com.meetup"
+ARTIFACT_ID?=scala-logger_2.11
+
 VERSION ?= 0.3.$(CI_BUILD_NUMBER)
 BUILDER_TAG = "meetup/sbt-builder:0.1.3"
 
@@ -40,7 +43,15 @@ __package-sbt:
 		component:test
 
 __publish-sbt: __package-sbt
-	sbt +publish cleanLocal
+	mvn deploy:deploy-file -DgroupId=${GROUP_ID} \
+		-DartifactId=${ARTIFACT_ID} \
+		-Dversion=${VERSION} \
+		-Dfile=./target/scala-2.11/${ARTIFACT_ID}-${VERSION}.jar \
+		-DpomFile=./target/scala-2.11/${ARTIFACT_ID}-${VERSION}.pom \
+		-Djavadoc=./target/scala-2.11/${ARTIFACT_ID}-${VERSION}-javadoc.jar \
+		-Dsources=./target/scala-2.11/${ARTIFACT_ID}-${VERSION}-sources.jar \
+		-DrepositoryId=github \
+		-Durl=https://maven.pkg.github.com/meetup/meetup
 
 __set-publish:
 	$(eval TARGET=__publish-sbt)
